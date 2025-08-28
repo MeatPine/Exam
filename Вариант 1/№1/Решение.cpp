@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-    
+
     int n, k;
     cin >> n >> k;
     vector<int> tur(n);
@@ -16,25 +16,19 @@ int main()
 
     sort(begin(tur), end(tur));
 
-    int lod = 0;
     int Count = 0;
     int left = 0, right = n - 1;
     while (left <= right) {
         if (tur[left] + tur[right] <= k) {
-            lod = lod + tur[left] + tur[right];
             left++;
             right--;
+            Count++;
             //cout << "if" << endl;
         }
         else {
-            lod += tur[right];
+            Count++;
             right--;
             //cout << "else" << endl;
-        }
-        
-        if (lod >= k) {
-            Count++;
-            lod -= k;
         }
 
         if (left == right) {
@@ -42,8 +36,8 @@ int main()
             break;
         }
     }
-    
+
     cout << Count;
-    
+
     return 0;
 }
