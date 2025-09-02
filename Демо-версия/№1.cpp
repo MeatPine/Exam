@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-    
+
     int n, m;
     cin >> n >> m;
     vector<int> C(n);
@@ -21,18 +21,22 @@ int main()
     sort(begin(C), end(C));
     sort(begin(P), end(P));
 
+    int child = 0, present = 0;
     int Count = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < P.size(); j++) {
-            if (C[i] <= P[j]) {
-                Count++;
-                P.erase(P.begin() + j);
-            }
+    while (child < n && present < m) {
+        //cout << Count << " " << child << " " << present << endl;
+
+        if (C[child] <= P[present]) {
+            Count++;
+            child++;
+            present++;
+        }
+        else {
+            present++;
         }
     }
 
     cout << Count;
-    
+
     return 0;
 }
-
