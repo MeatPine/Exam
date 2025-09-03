@@ -3,6 +3,47 @@
 
 using namespace std;
 
+int get_days(int n, int mid, vector<int> w) {
+    int days = 1;
+    int x = 0;
+    int truck1 = 0, truck2 = 0;
+    for (int i = 0; i < n; i++) {
+        if (w[i] > 2 * mid)
+        {
+            return days;
+        }
+
+        if (truck1 + w[i] <= mid)
+        {
+            truck1 += w[i];
+        }
+        else if (truck2 + (w[i] - (mid - truck1)) <= mid)
+        {
+            int wt = w[i];
+            wt -= mid - truck1;
+            truck1 = mid;
+            truck2 += wt;
+        }
+        else
+        {
+            days++;
+            truck1 = w[i];
+            if (w[i] > mid)
+            {
+                truck1 = mid;
+                truck2 = w[i] - mid;
+            }
+            else
+            {
+                truck2 = 0;
+            }
+        }
+
+    }
+
+    return days;
+}
+
 int main() {
     int n;
     cin >> n;
@@ -14,7 +55,7 @@ int main() {
         cin >> w[i];
     }
     long long left = 0;
-    long long right = 10;
+    long long right = 2e9;
     while (left + 1 < right)
     {
         long long tonage = (left + right) / 2;
@@ -23,7 +64,7 @@ int main() {
         long long count = 0;
         for (int i = 0; i < n; ++i)
         {
-            if (w[i] > tonage)
+            if (w[i] > 2 * tonage)
             {
                 count = d + 1;
                 break;
@@ -43,19 +84,30 @@ int main() {
             {
                 count++;
                 truck1 = w[i];
-                truck2 = 0;
+                if (w[i] > tonage)
+                {
+                    truck1 = tonage;
+                    truck2 = w[i] - tonage;
+                }
+                else
+                {
+                    truck2 = 0;
+                }
             }
         }
+
         count++;
-        
+
         if (count > d) {
             left = tonage;
         }
         else {
             right = tonage;
         }
+
     }
-    cout << right;
+    cout << right << endl;
+    cout << get_days(n, right, w);
 
     return 0;
 }
