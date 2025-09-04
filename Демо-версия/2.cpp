@@ -7,6 +7,10 @@ int get_days(int n, int mid, vector<int> w) {
     int days = 1;
     int x = 0;
     for (int i = 0; i < n; i++) {
+        if (w[i] > mid) {
+            return 1e9;
+        }
+
         if (x + w[i] <= mid) {
             x += w[i];
             //cout << i << " " << x << endl;
@@ -35,26 +39,7 @@ int main() {
     {
         long long tonage = (left + right) / 2;
         long long truck1 = 0;
-        long long count = 0;
-        for (int i = 0; i < n; ++i)
-        {
-            if (w[i] > tonage)
-            {
-                count = d + 1;
-                break;
-            }
-            
-            if (truck1 + w[i] <= tonage)
-            {
-                truck1 += w[i];
-            }
-            else
-            {
-                count++;
-                truck1 = w[i];
-            }
-        }
-        count++;
+        int count = get_days(n, tonage, w);
 
         if (count > d) {
             left = tonage;
@@ -65,8 +50,8 @@ int main() {
 
         //cout << tonage << " " << truck1 << " " << count << endl;
     }
-    cout << right << endl;
-    cout << get_days(n, right, w);
+    cout << right;
+    //cout << get_days(n, right, w);
 
     return 0;
 }
