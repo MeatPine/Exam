@@ -10,9 +10,9 @@ int get_days(int n, int mid, vector<int> w) {
     for (int i = 0; i < n; i++) {
         if (w[i] > mid)
         {
-            return days;
+            return 100001;
         }
-        
+
         if (truck1 + w[i] <= mid)
         {
             truck1 += w[i];
@@ -40,57 +40,49 @@ int get_days(int n, int mid, vector<int> w) {
 int main() {
     int n;
     cin >> n;
-    int d;
-    cin >> d;
+    int D;
+    cin >> D;
     vector<int> w(n);
+    int left = 0;
+    int right = 0;
     for (int i = 0; i < n; ++i)
     {
         cin >> w[i];
+        right += w[i];
     }
-    long long left = 0;
-    long long right = 10;
     while (left + 1 < right)
     {
-        long long tonage = (left + right) / 2;
-        long long truck1 = 0;
-        long long truck2 = 0;
-        long long count = 0;
-        for (int i = 0; i < n; ++i)
-        {
-            if (w[i] > tonage)
-            {
-                count = d + 1;
-                break;
-            }
-            if (truck1 + w[i] <= tonage)
-            {
-                truck1 += w[i];
-            }
-            else if (truck2 + (w[i] - (tonage - truck1)) <= tonage)
-            {
-                int wt = w[i];
-                wt -= tonage - truck1;
-                truck1 = tonage;
-                truck2 += wt;
-            }
-            else
-            {
-                count++;
-                truck1 = w[i];
-                truck2 = 0;
-            }
-        }
-        count++;
 
-        if (count > d) {
-            left = tonage;
+        int mid = left + (right - left) / 2;
+        //cout << left << " " << right << " " << get_days(n, mid, w) << endl;
+        int d = get_days(n, mid, w);
+
+        if (d < D) {
+            left = mid + 1;
         }
         else {
-            right = tonage;
+            right = mid - 1;
         }
     }
-    cout << right << endl;
-    cout << get_days(n, right, w);
+
+    //cout << endl;
+
+    //cout << left << " " << right << " " << get_days(n, right, w) << endl;
+
+    cout << right;
 
     return 0;
 }
+
+
+/*
+5 2
+4 1 3 2 5
+
+5
+*/
+
+/*
+6 3
+3 2 2 4 1 4
+*/
