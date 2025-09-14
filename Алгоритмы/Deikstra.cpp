@@ -1,25 +1,33 @@
-vector<int> dijkstra(int start, int n, const vector<vector<pair<int, int>>>& graph) {
-    const int INF = INT_MAX;
-    vector<int> dist(n, INF);
-    dist[start] = 0;
-    set<pair<int, int>> pq; // {distance, vertex}
-    pq.insert({0, start});
+struct X {
+    int v;
+    int t;
+    int p;
+};
+
+int Deiksrta(int start, vector<vector<X>> graph, int finish, int p) {
+    vector<int> rast(graph.size(), INF);
+    rast[start] = 0;
     
-    while (!pq.empty()) {
-        int u = pq.begin()->second;
-        int d = pq.begin()->first;
-        pq.erase(pq.begin());
-        
-        if (d > dist[u]) continue; // Skip outdated entries
-        
-        for (const auto& edge : graph[u]) {
-            int v = edge.first;
-            int wt = edge.second;
-            if (dist[u] + wt < dist[v]) {
-                dist[v] = dist[u] + wt;
-                pq.insert({dist[v], v});
+    set <pair<int, int>> Q;
+    Q.insert({ 0, start });
+    
+    while (!Q.empty()) {
+        int u = Q.begin()->second;
+        if (u == finish) {
+            return rast[finish];
+        }
+        Q.erase(Q.begin());
+
+        for (auto road : graph[u]) {
+            if (road.p <= p) {
+                if (rast[u] + road.t < rast[road.v]) {
+                    Q.erase({ rast[road.v], road.v });
+                    rast[road.v] = rast[u] + road.t;
+                    Q.insert({ rast[road.v], road.v });
+                }
             }
         }
     }
-    return dist;
+
+    return -1;
 }
