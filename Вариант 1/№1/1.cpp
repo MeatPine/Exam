@@ -23,12 +23,10 @@ int main()
             left++;
             right--;
             Count++;
-            //cout << "if" << endl;
         }
         else {
             Count++;
             right--;
-            //cout << "else" << endl;
         }
 
         if (left == right) {
