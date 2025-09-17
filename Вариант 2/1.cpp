@@ -19,11 +19,8 @@ int main()
     int MIN = 2000;
     for (int i = 0; i <= n - k; i++) {
         if (MIN > sport[i + k - 1] - sport[i]) {
-            cout << "left " << sport[i] << " right " << sport[i + k - 1] << endl;
             MIN = sport[i + k - 1] - sport[i];
-            cout << MIN << endl;
         }
-        cout << "i " << i << endl;
     }
 
     cout << MIN;
