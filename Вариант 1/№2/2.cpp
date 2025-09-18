@@ -21,7 +21,7 @@ int main() {
         long long tonage = (left + right) / 2;
         long long truck1 = 0;
         long long truck2 = 0;
-        long long count = 0;
+        long long count = 1;
         for (int i = 0; i < n; ++i)
         {
             if (w[i] > tonage)
@@ -35,17 +35,20 @@ int main() {
             }
             else if (truck2 + w[i] <= tonage)
             {
-                
+                truck2 += w[i];
             }
             else
             {
                 count++;
+                if (count > d) {
+                    break;
+                }
                 truck1 = w[i];
                 truck2 = 0;
             }
         }
 
-        count++;
+        //count++;
 
         if (count > d) {
             left = tonage;
