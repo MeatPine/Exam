@@ -81,7 +81,7 @@ int main()
         cin >> I[i];
         cin >> X[i];
     }
-    
+
     int y = log2(n) + 1;
     for (int i = arr.size(); i < pow(2, y); i++) {
         arr.push_back(0);
@@ -101,16 +101,13 @@ int main()
 
     for (int i = 0; i < q; i++) {
         if (U[i] == "s") {
-            int SUM = 0;
-            for (int j = I[i] - 1; j <= X[i] - 1; j++) {
-                SUM += tree[j + n - 1];
-            }
+            int SUM = Get_Sum(n, I[i], X[i], tree);
             cout << SUM << endl;
         }
         if (U[i] == "u") {
             Update(n, I[i] - 1, X[i], tree, arr);
         }
     }
-    
+
     return 0;
 }
