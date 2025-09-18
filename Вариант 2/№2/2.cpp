@@ -56,8 +56,6 @@ int main() {
             }
         }
 
-        count++;
-
         if (count > d) {
             left = tonage;
         }
