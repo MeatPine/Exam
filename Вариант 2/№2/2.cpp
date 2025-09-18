@@ -43,7 +43,6 @@ int main() {
             else
             {
                 count++;
-                truck1 = w[i];
                 if (w[i] > tonage)
                 {
                     truck1 = tonage;
@@ -51,6 +50,7 @@ int main() {
                 }
                 else
                 {
+                    truck1 = w[i];
                     truck2 = 0;
                 }
             }
